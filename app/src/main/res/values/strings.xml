@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Your Financial</string>
+    <string name="button_add_transaction_content_description">button add transaction</string>
+    <string name="welcome">Welcome,</string>
+    <string name="your_balance">your balance:</string>
+    <string name="icon_revenue_content_description">icon revenue</string>
+    <string name="revenue">revenue</string>
+    <string name="dummy_amount">Rp 5.000.000</string>
+    <string name="icon_expanse_content_description">icon expanse</string>
+    <string name="expanse">expanse</string>
+    <string name="transaction">Transaction</string>
+    <string name="stock">Stock</string>
+    <string name="profile">Profile</string>
+    <string name="dummy_title_item">Netflix subscription</string>
+    <string name="dummy_status_item">LUNAS</string>
+    <string name="notes">notes</string>
+    <string name="button_expand_content_description">button expand</string>
+    <string name="dummy_note">Membeli langganan netflix selama satu bulan</string>
+    <string name="rp_0">Rp. 0</string>
 </resources>
