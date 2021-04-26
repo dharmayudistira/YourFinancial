@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pandecode.yourfinancial.databinding.FragmentTransactionBinding
 import com.pandecode.yourfinancial.ui.add_transaction.AddTransactionBottomSheet
+import com.pandecode.yourfinancial.utils.RupiahFormatter
 import com.pandecode.yourfinancial.utils.ViewModelFactory
 
 class TransactionFragment : Fragment() {
@@ -52,14 +52,47 @@ class TransactionFragment : Fragment() {
 
     private fun observeTransaction() {
         viewModel.listTransaction.observe(viewLifecycleOwner, {
-            transactionAdapter.setListTransaction(it)
+            if (it.isNotEmpty()) {
+                showEmpty(false)
+
+                transactionAdapter.setListTransaction(it)
+
+                val totalRevenues = transactionAdapter.getAllRevenues()
+                val totalExpanses = transactionAdapter.getAllExpanse()
+                setOverview(totalRevenues, totalExpanses)
+                setCurrentBalance(totalRevenues - totalExpanses)
+            } else {
+                showEmpty(true)
+            }
         })
+    }
+
+    private fun setCurrentBalance(currentBalance: Double) {
+        binding.layoutTransactionOverview.tvYourBalanceTransaction.text =
+            RupiahFormatter.toRupiah(currentBalance)
+    }
+
+    private fun setOverview(revenues: Double, expanses: Double) {
+        binding.layoutTransactionOverview.tvTotalRevenueTransaction.text =
+            RupiahFormatter.toRupiah(revenues)
+        binding.layoutTransactionOverview.tvTotalExpanseTransaction.text =
+            RupiahFormatter.toRupiah(expanses)
+    }
+
+    private fun showEmpty(state: Boolean) {
+        if (state) {
+            binding.layoutTransactionHistory.lottieEmptyTransaction.visibility = View.VISIBLE
+            binding.layoutTransactionHistory.rvHistoryTransaction.visibility = View.GONE
+        } else {
+            binding.layoutTransactionHistory.lottieEmptyTransaction.visibility = View.GONE
+            binding.layoutTransactionHistory.rvHistoryTransaction.visibility = View.VISIBLE
+        }
     }
 
     private fun setupViewModel() {
         val factory = ViewModelFactory.getInstance(activity as AppCompatActivity)
         viewModel = ViewModelProvider(
-            this,
+            requireActivity(),
             factory
         )[TransactionViewModel::class.java]
     }

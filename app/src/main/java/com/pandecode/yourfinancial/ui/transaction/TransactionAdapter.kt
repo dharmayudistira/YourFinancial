@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.pandecode.yourfinancial.R
 import com.pandecode.yourfinancial.data.local.room.entity.TransactionEntity
 import com.pandecode.yourfinancial.databinding.ItemTransactionBinding
+import com.pandecode.yourfinancial.utils.RupiahFormatter
 import com.pandecode.yourfinancial.utils.TransactionType
 
 class TransactionAdapter : RecyclerView.Adapter<TransactionAdapter.ViewHolder>() {
@@ -17,7 +18,28 @@ class TransactionAdapter : RecyclerView.Adapter<TransactionAdapter.ViewHolder>()
     fun setListTransaction(transactions: MutableList<TransactionEntity>) {
         this.listTransaction.clear()
         listTransaction.addAll(transactions)
+        listTransaction.reverse()
         notifyDataSetChanged()
+    }
+
+    fun getAllRevenues(): Double {
+        var amounts = 0.0
+        for (transaction in listTransaction) {
+            if (transaction.type == TransactionType.REVENUE) {
+                amounts += transaction.amount
+            }
+        }
+        return amounts
+    }
+
+    fun getAllExpanse(): Double {
+        var amounts = 0.0
+        for (transaction in listTransaction) {
+            if (transaction.type == TransactionType.EXPANSE) {
+                amounts += transaction.amount
+            }
+        }
+        return amounts
     }
 
     override fun onCreateViewHolder(
@@ -40,8 +62,7 @@ class TransactionAdapter : RecyclerView.Adapter<TransactionAdapter.ViewHolder>()
         fun bind(transaction: TransactionEntity, position: Int) {
 
             binding.tvTitleItemTransaction.text = transaction.title
-            binding.tvAmountItemTransaction.text =
-                binding.root.context.getString(R.string.amount_placholder, transaction.amount)
+            binding.tvAmountItemTransaction.text = RupiahFormatter.toRupiah(transaction.amount)
             binding.tvStatusItemTransaction.text = transaction.status.text
             binding.tvNotesItemTransaction.text = transaction.notes
 

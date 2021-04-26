@@ -17,7 +17,6 @@
     <string name="button_expand_content_description">button expand</string>
     <string name="dummy_note">Membeli langganan netflix selama satu bulan</string>
     <string name="rp_0">Rp. 0</string>
-    <string name="amount_placholder">Rp. %d</string>
     <string name="this_is_image">this is image</string>
     <string name="input_amount">Input amount</string>
     <string name="input_title">Input title</string>
@@ -26,4 +25,7 @@
     <string name="belum_lunas">Belum Lunas</string>
     <string name="lunas">Lunas</string>
     <string name="save">save</string>
+    <string name="error_empty_input_amount">Input amount cannot be empty</string>
+    <string name="error_empty_input_title">Input title cannot be empty</string>
+    <string name="notes_optional">Notes (optional)</string>
 </resources>

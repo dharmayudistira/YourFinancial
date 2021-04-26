@@ -8,9 +8,9 @@ import com.pandecode.yourfinancial.utils.TransactionType
 @Entity
 data class TransactionEntity(
     @PrimaryKey(autoGenerate = true)
-    var id: Int,
+    var id: Int = 0,
     var title: String,
-    var amount: Int,
+    var amount: Double,
     var status: TransactionStatus,
     var type: TransactionType,
     var notes: String?,

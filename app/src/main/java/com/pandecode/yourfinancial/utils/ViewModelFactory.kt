@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.pandecode.yourfinancial.data.Repository
 import com.pandecode.yourfinancial.di.Injection
-import com.pandecode.yourfinancial.ui.add_transaction.AddTransactionViewModel
 import com.pandecode.yourfinancial.ui.transaction.TransactionViewModel
 
 class ViewModelFactory private constructor(private val repository: Repository) :
@@ -27,10 +26,6 @@ class ViewModelFactory private constructor(private val repository: Repository) :
 
             modelClass.isAssignableFrom(TransactionViewModel::class.java) -> {
                 TransactionViewModel(repository) as T
-            }
-
-            modelClass.isAssignableFrom(AddTransactionViewModel::class.java) -> {
-                AddTransactionViewModel(repository) as T
             }
 
             else -> {
