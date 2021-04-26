@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pandecode.yourfinancial.databinding.FragmentTransactionBinding
-import com.pandecode.yourfinancial.utils.Status
+import com.pandecode.yourfinancial.ui.add_transaction.AddTransactionBottomSheet
 import com.pandecode.yourfinancial.utils.ViewModelFactory
 
 class TransactionFragment : Fragment() {
@@ -41,23 +42,17 @@ class TransactionFragment : Fragment() {
         observeTransaction()
 
         binding.btnAddTransactionTransaction.setOnClickListener {
+            val bottomSheet = AddTransactionBottomSheet()
 
+            activity?.supportFragmentManager?.let {
+                bottomSheet.show(it, AddTransactionBottomSheet::class.java.simpleName)
+            }
         }
     }
 
     private fun observeTransaction() {
-        viewModel.listTransaction.observe(viewLifecycleOwner, { resource ->
-            when (resource.status) {
-                Status.SUCCESS -> {
-                    resource.data?.let { transactionAdapter.setListTransaction(it) }
-                }
-                Status.LOADING -> {
-
-                }
-                Status.ERROR -> {
-
-                }
-            }
+        viewModel.listTransaction.observe(viewLifecycleOwner, {
+            transactionAdapter.setListTransaction(it)
         })
     }
 

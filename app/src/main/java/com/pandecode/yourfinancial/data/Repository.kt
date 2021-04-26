@@ -17,7 +17,7 @@ class Repository private constructor(
             }
     }
 
-    override suspend fun getAllTransaction(): MutableList<TransactionEntity> = localDataSource.getAllTransaction()
+    override fun getAllTransaction() = localDataSource.getAllTransaction()
 
     override suspend fun insertTransaction(transaction: TransactionEntity) = localDataSource.insertTransaction(transaction)
 }

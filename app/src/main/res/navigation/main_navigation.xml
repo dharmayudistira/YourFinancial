@@ -9,7 +9,9 @@
         android:id="@+id/transactionFragment"
         android:name="com.pandecode.yourfinancial.ui.transaction.TransactionFragment"
         android:label="fragment_transaction"
-        tools:layout="@layout/fragment_transaction" />
+        tools:layout="@layout/fragment_transaction" >
+
+    </fragment>
     <fragment
         android:id="@+id/stockFragment"
         android:name="com.pandecode.yourfinancial.ui.stock.StockFragment"
@@ -20,4 +22,6 @@
         android:name="com.pandecode.yourfinancial.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+
+
 </navigation>

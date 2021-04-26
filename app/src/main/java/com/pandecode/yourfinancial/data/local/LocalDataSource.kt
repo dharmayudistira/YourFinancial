@@ -15,6 +15,6 @@ class LocalDataSource(private val transactionDao: TransactionDao) {
             }
     }
 
-    suspend fun getAllTransaction() = transactionDao.getAllTransaction()
+    fun getAllTransaction() = transactionDao.getAllTransaction()
     suspend fun insertTransaction(transaction: TransactionEntity) = transactionDao.insertTransaction(transaction)
 }

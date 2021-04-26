@@ -4,10 +4,10 @@
     <string name="welcome">Welcome</string>
     <string name="your_balance">your balance:</string>
     <string name="icon_revenue_content_description">icon revenue</string>
-    <string name="revenue">revenue</string>
+    <string name="revenue">Revenue</string>
     <string name="dummy_amount">Rp 5.000.000</string>
     <string name="icon_expanse_content_description">icon expanse</string>
-    <string name="expanse">expanse</string>
+    <string name="expanse">Expanse</string>
     <string name="transaction">Transaction</string>
     <string name="stock">Stock</string>
     <string name="profile">Profile</string>
@@ -18,4 +18,12 @@
     <string name="dummy_note">Membeli langganan netflix selama satu bulan</string>
     <string name="rp_0">Rp. 0</string>
     <string name="amount_placholder">Rp. %d</string>
+    <string name="this_is_image">this is image</string>
+    <string name="input_amount">Input amount</string>
+    <string name="input_title">Input title</string>
+    <string name="select_a_type">Select a type</string>
+    <string name="select_a_status">Select a status</string>
+    <string name="belum_lunas">Belum Lunas</string>
+    <string name="lunas">Lunas</string>
+    <string name="save">save</string>
 </resources>
