@@ -5,6 +5,7 @@
     - User can see list of transaction whether it is expanse or revenue
     - User can add transactions and choose the type of transaction: expense or revenue
     - each transaction has a status : Lunas / Belum Lunas
+    - user can edit their transaction
 - Overview
     - users can see their current balance after all of the transactions
 
