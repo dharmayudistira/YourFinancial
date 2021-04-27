@@ -4,20 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pandecode.yourfinancial.databinding.FragmentTransactionBinding
 import com.pandecode.yourfinancial.ui.add_transaction.AddTransactionBottomSheet
 import com.pandecode.yourfinancial.utils.RupiahFormatter
-import com.pandecode.yourfinancial.utils.ViewModelFactory
+import org.koin.android.ext.android.inject
 
 class TransactionFragment : Fragment() {
     private var _binding: FragmentTransactionBinding? = null
     private val binding get() = _binding as FragmentTransactionBinding
 
-    private lateinit var viewModel: TransactionViewModel
+    private val viewModel by inject<TransactionViewModel>()
     private lateinit var transactionAdapter: TransactionAdapter
 
     override fun onCreateView(
@@ -36,7 +34,6 @@ class TransactionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupViewModel()
         setupRecyclerview()
 
         observeTransaction()
@@ -87,14 +84,6 @@ class TransactionFragment : Fragment() {
             binding.layoutTransactionHistory.lottieEmptyTransaction.visibility = View.GONE
             binding.layoutTransactionHistory.rvHistoryTransaction.visibility = View.VISIBLE
         }
-    }
-
-    private fun setupViewModel() {
-        val factory = ViewModelFactory.getInstance(activity as AppCompatActivity)
-        viewModel = ViewModelProvider(
-            requireActivity(),
-            factory
-        )[TransactionViewModel::class.java]
     }
 
     private fun setupRecyclerview() {

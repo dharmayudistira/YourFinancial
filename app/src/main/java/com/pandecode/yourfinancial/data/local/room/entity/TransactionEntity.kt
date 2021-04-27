@@ -5,6 +5,9 @@ import androidx.room.PrimaryKey
 import com.pandecode.yourfinancial.utils.TransactionStatus
 import com.pandecode.yourfinancial.utils.TransactionType
 
+/*
+    This is Entity class which represent Transaction and it's property
+ */
 @Entity
 data class TransactionEntity(
     @PrimaryKey(autoGenerate = true)

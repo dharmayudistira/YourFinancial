@@ -28,4 +28,5 @@
     <string name="error_empty_input_amount">Input amount cannot be empty</string>
     <string name="error_empty_input_title">Input title cannot be empty</string>
     <string name="notes_optional">Notes (optional)</string>
+    <string name="app">App</string>
 </resources>

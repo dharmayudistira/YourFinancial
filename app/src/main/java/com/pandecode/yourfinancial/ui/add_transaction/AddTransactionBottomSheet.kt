@@ -5,8 +5,6 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.pandecode.yourfinancial.R
 import com.pandecode.yourfinancial.data.local.room.entity.TransactionEntity
@@ -14,13 +12,13 @@ import com.pandecode.yourfinancial.databinding.BottomSheetAddTransactionBinding
 import com.pandecode.yourfinancial.ui.transaction.TransactionViewModel
 import com.pandecode.yourfinancial.utils.TransactionStatus
 import com.pandecode.yourfinancial.utils.TransactionType
-import com.pandecode.yourfinancial.utils.ViewModelFactory
+import org.koin.android.ext.android.inject
 
 class AddTransactionBottomSheet : BottomSheetDialogFragment() {
     private var _binding: BottomSheetAddTransactionBinding? = null
     private val binding get() = _binding as BottomSheetAddTransactionBinding
 
-    private lateinit var viewModel: TransactionViewModel
+    private val viewModel by inject<TransactionViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,7 +36,6 @@ class AddTransactionBottomSheet : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupViewModel()
 
         binding.btnSaveAddTransaction.setOnClickListener {
             if (validateInput()) {
@@ -66,7 +63,7 @@ class AddTransactionBottomSheet : BottomSheetDialogFragment() {
 
         viewModel.insertTransaction(transactionEntity)
 
-        dismiss()
+        dismiss() //dismiss the bottom sheet
     }
 
     private fun getTransactionStatus(): TransactionStatus {
@@ -114,13 +111,5 @@ class AddTransactionBottomSheet : BottomSheetDialogFragment() {
         }
 
         return true
-    }
-
-    private fun setupViewModel() {
-        val factory = ViewModelFactory.getInstance(activity as AppCompatActivity)
-        viewModel = ViewModelProvider(
-            requireActivity(),
-            factory
-        )[TransactionViewModel::class.java]
     }
 }

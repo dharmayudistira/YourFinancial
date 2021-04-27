@@ -4,6 +4,10 @@ import androidx.room.TypeConverter
 import com.pandecode.yourfinancial.utils.TransactionStatus
 import com.pandecode.yourfinancial.utils.TransactionType
 
+/*
+    Since room can only keep primitive data
+    so we need a converters to keep non-primitive data
+ */
 class Converters {
 
     companion object {

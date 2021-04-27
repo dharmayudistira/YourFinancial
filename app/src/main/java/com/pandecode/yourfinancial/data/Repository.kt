@@ -3,21 +3,16 @@ package com.pandecode.yourfinancial.data
 import com.pandecode.yourfinancial.data.local.LocalDataSource
 import com.pandecode.yourfinancial.data.local.room.entity.TransactionEntity
 
-class Repository private constructor(
+/*
+    This is Repository class that implements repository interface
+    to help ViewModels communicate with local data source
+ */
+class Repository(
     private val localDataSource: LocalDataSource
 ) : IRepository {
 
-    companion object {
-        @Volatile
-        private var instance: Repository? = null
-
-        fun getInstance(localDataSource: LocalDataSource) : Repository =
-            instance ?: synchronized(this) {
-                instance ?: Repository(localDataSource)
-            }
-    }
-
     override fun getAllTransaction() = localDataSource.getAllTransaction()
 
-    override suspend fun insertTransaction(transaction: TransactionEntity) = localDataSource.insertTransaction(transaction)
+    override suspend fun insertTransaction(transaction: TransactionEntity) =
+        localDataSource.insertTransaction(transaction)
 }
