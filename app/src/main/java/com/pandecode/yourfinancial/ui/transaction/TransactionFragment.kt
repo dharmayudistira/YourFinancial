@@ -6,12 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.pandecode.yourfinancial.data.local.room.entity.TransactionEntity
 import com.pandecode.yourfinancial.databinding.FragmentTransactionBinding
 import com.pandecode.yourfinancial.ui.add_transaction.AddTransactionBottomSheet
 import com.pandecode.yourfinancial.utils.RupiahFormatter
 import org.koin.android.ext.android.inject
 
-class TransactionFragment : Fragment() {
+class TransactionFragment : Fragment(), TransactionAdapter.OnItemClickListener {
     private var _binding: FragmentTransactionBinding? = null
     private val binding get() = _binding as FragmentTransactionBinding
 
@@ -87,13 +88,23 @@ class TransactionFragment : Fragment() {
     }
 
     private fun setupRecyclerview() {
-        transactionAdapter = TransactionAdapter()
+        transactionAdapter = TransactionAdapter(this)
 
         with(binding.layoutTransactionHistory.rvHistoryTransaction) {
             layoutManager = LinearLayoutManager(context)
             adapter = transactionAdapter
         }
 
+    }
+
+    override fun onItemClick(transaction: TransactionEntity) {
+        val bottomSheet = AddTransactionBottomSheet()
+        bottomSheet.selectedTransaction = transaction
+        bottomSheet.isUpdate = true
+
+        activity?.supportFragmentManager?.let {
+            bottomSheet.show(it, AddTransactionBottomSheet::class.java.simpleName)
+        }
     }
 
 

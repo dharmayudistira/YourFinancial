@@ -29,4 +29,5 @@
     <string name="error_empty_input_title">Input title cannot be empty</string>
     <string name="notes_optional">Notes (optional)</string>
     <string name="app">App</string>
+    <string name="update">Update</string>
 </resources>

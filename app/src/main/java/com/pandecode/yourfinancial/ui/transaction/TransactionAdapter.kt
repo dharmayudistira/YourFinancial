@@ -11,7 +11,7 @@ import com.pandecode.yourfinancial.databinding.ItemTransactionBinding
 import com.pandecode.yourfinancial.utils.RupiahFormatter
 import com.pandecode.yourfinancial.utils.TransactionType
 
-class TransactionAdapter : RecyclerView.Adapter<TransactionAdapter.ViewHolder>() {
+class TransactionAdapter(private val listener: OnItemClickListener) : RecyclerView.Adapter<TransactionAdapter.ViewHolder>() {
 
     private val listTransaction = mutableListOf<TransactionEntity>()
 
@@ -58,7 +58,12 @@ class TransactionAdapter : RecyclerView.Adapter<TransactionAdapter.ViewHolder>()
     override fun getItemCount() = listTransaction.size
 
     inner class ViewHolder(private val binding: ItemTransactionBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+        RecyclerView.ViewHolder(binding.root), View.OnClickListener {
+
+        init {
+            binding.root.setOnClickListener(this)
+        }
+
         fun bind(transaction: TransactionEntity, position: Int) {
 
             binding.tvTitleItemTransaction.text = transaction.title
@@ -91,5 +96,15 @@ class TransactionAdapter : RecyclerView.Adapter<TransactionAdapter.ViewHolder>()
             }
 
         }
+
+        override fun onClick(v: View?) {
+            if (bindingAdapterPosition != RecyclerView.NO_POSITION) {
+                listener.onItemClick(listTransaction[bindingAdapterPosition])
+            }
+        }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(transaction: TransactionEntity)
     }
 }

@@ -20,6 +20,9 @@ class AddTransactionBottomSheet : BottomSheetDialogFragment() {
 
     private val viewModel by inject<TransactionViewModel>()
 
+    var selectedTransaction : TransactionEntity? = null
+    var isUpdate = false
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,12 +40,71 @@ class AddTransactionBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (selectedTransaction != null) {
+            setupUI(selectedTransaction)
+            binding.btnSaveAddTransaction.text = resources.getString(R.string.update)
+        }
+
         binding.btnSaveAddTransaction.setOnClickListener {
             if (validateInput()) {
-                addTransaction()
+                if (isUpdate) {
+                    selectedTransaction?.let {
+                        updateTransaction(it)
+                    }
+                }else {
+                    addTransaction()
+                }
             }
         }
 
+    }
+
+    private fun updateTransaction(transaction: TransactionEntity) {
+        val amount = binding.edtInputAmountAddTransaction.editText?.text.toString().toDouble()
+        val title = binding.edtInputTitleAddTransaction.editText?.text.toString()
+        val type = getTransactionType()
+        val status = getTransactionStatus()
+        val notes = binding.edtInputNotesAddTransaction.editText?.text?.toString()
+
+        val transactionEntity = TransactionEntity(
+            id = transaction.id,
+            title = title,
+            amount = amount,
+            status = status,
+            type = type,
+            notes = notes,
+            isExpand = false
+        )
+
+        viewModel.insertTransaction(transactionEntity)
+        dismiss()
+    }
+
+    private fun setupUI(transaction: TransactionEntity?) {
+        transaction?.let {
+            binding.edtInputAmountAddTransaction.editText?.setText(transaction.amount.toString())
+            binding.edtInputTitleAddTransaction.editText?.setText(transaction.title)
+
+            when(transaction.status) {
+                TransactionStatus.BELUM_LUNAS -> {
+                    binding.rbBelumLunasAddTransaction.isChecked = true
+                }
+                TransactionStatus.LUNAS -> {
+                    binding.rbLunasAddTransaction.isChecked = true
+                }
+            }
+
+            when(transaction.type) {
+                TransactionType.EXPANSE -> {
+                    binding.rbExpanseAddTransaction.isChecked = true
+                }
+                TransactionType.REVENUE -> {
+                    binding.rbRevenueAddTransaction.isChecked = true
+                }
+            }
+
+            binding.edtInputNotesAddTransaction.editText?.setText(transaction.notes)
+        }
     }
 
     private fun addTransaction() {
