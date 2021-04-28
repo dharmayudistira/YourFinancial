@@ -11,4 +11,7 @@ class TransactionViewModel(private val repository: Repository) : ViewModel() {
     fun insertTransaction(transaction: TransactionEntity) = viewModelScope.launch {
         repository.insertTransaction(transaction)
     }
+    fun deleteTransaction(id: Int) = viewModelScope.launch {
+        repository.deleteTransaction(id)
+    }
 }

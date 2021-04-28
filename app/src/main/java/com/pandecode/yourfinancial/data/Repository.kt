@@ -15,4 +15,6 @@ class Repository(
 
     override suspend fun insertTransaction(transaction: TransactionEntity) =
         localDataSource.insertTransaction(transaction)
+
+    override suspend fun deleteTransaction(id: Int) = localDataSource.deleteTransaction(id)
 }

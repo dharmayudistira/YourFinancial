@@ -9,4 +9,5 @@ import com.pandecode.yourfinancial.data.local.room.entity.TransactionEntity
 interface IRepository {
     fun getAllTransaction() : LiveData<MutableList<TransactionEntity>>
     suspend fun insertTransaction(transaction: TransactionEntity)
+    suspend fun deleteTransaction(id: Int)
 }

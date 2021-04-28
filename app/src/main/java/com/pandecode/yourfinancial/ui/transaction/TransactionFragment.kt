@@ -61,6 +61,8 @@ class TransactionFragment : Fragment(), TransactionAdapter.OnItemClickListener {
                 setCurrentBalance(totalRevenues - totalExpanses)
             } else {
                 showEmpty(true)
+                setOverview(0.0, 0.0)
+                setCurrentBalance(0.0 - 0.0)
             }
         })
     }

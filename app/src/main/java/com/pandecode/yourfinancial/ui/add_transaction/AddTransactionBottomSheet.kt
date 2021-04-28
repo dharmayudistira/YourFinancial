@@ -43,6 +43,13 @@ class AddTransactionBottomSheet : BottomSheetDialogFragment() {
         if (selectedTransaction != null) {
             setupUI(selectedTransaction)
             binding.btnSaveAddTransaction.text = resources.getString(R.string.update)
+            binding.btnDeleteTransaction.visibility = View.VISIBLE
+
+            binding.btnDeleteTransaction.setOnClickListener {
+                selectedTransaction?.let {
+                    deleteTransaction(it)
+                }
+            }
         }
 
         binding.btnSaveAddTransaction.setOnClickListener {
@@ -57,6 +64,12 @@ class AddTransactionBottomSheet : BottomSheetDialogFragment() {
             }
         }
 
+    }
+
+    private fun deleteTransaction(transaction: TransactionEntity) {
+        viewModel.deleteTransaction(transaction.id)
+
+        dismiss()
     }
 
     private fun updateTransaction(transaction: TransactionEntity) {
